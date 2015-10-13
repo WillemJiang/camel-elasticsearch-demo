@@ -1,0 +1,46 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.5.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
+
+jar {
+    baseName = 'camel-elasticsearch-demo'
+    version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+def camelVersion = '2.15.3'
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.apache.camel:camel-core:${camelVersion}")
+    compile("org.apache.camel:camel-spring-boot:${camelVersion}")
+    compile("org.apache.camel:camel-elasticsearch:${camelVersion}")
+    compile("org.apache.camel:camel-rss:${camelVersion}")
+    compile("org.apache.camel:camel-jackson:${camelVersion}")
+    compile("joda-time:joda-time:2.8.2")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}

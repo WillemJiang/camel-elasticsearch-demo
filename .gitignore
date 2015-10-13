@@ -1,0 +1,11 @@
+build
+*.iml
+*.ipr
+*.iws
+.idea
+.DS_Store
+.classpath
+.ekstazi
+.project
+.settings
+.checkstyle
