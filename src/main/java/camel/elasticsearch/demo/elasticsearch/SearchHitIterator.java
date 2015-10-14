@@ -9,9 +9,6 @@ import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by david on 2015-08-26.
- */
 public class SearchHitIterator implements Iterator<SearchHit> {
     private static final Logger LOG = LoggerFactory.getLogger(SearchHitIterator.class);
 

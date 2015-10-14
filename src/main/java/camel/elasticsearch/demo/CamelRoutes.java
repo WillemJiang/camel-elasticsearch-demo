@@ -27,6 +27,7 @@ public class CamelRoutes extends RouteBuilder {
 
     @Value("${elasticsearch.rss.uri}") private         String               elasticsearchRssUri;
     @Value("${elasticsearch.scrollBatchSize}") private int                  searchBatchSize;
+    @Value("${camel.rss.uri") private String camelRssUri;
     private                                            ElasticSearchService esRssService;
 
     @PostConstruct public void initCamelContext() throws Exception {
@@ -45,9 +46,9 @@ public class CamelRoutes extends RouteBuilder {
         esRssService = new ElasticSearchService(esTweetEndpoint.getClient(), ES_RSS_INDEX_TYPE, searchBatchSize);
     }
 
-    @Override
-    public void configure() throws Exception {
-        from("rss:http://cn.reuters.feedsportal.com/CNTechNews?splitEntries=true&consumer.delay=500")
+    @Override public void configure() throws Exception {
+        // Pulling the rss feed every 1 second
+        from("rss:http://cn.reuters.feedsportal.com/CNTechNews?splitEntries=true&consumer.delay=1000")
                 .process(new WeeklyIndexNameHeaderUpdater(ES_RSS_INDEX_TYPE))
                 .process(new ElasticSearchRSSConverter())
                 // collects feeds into weekly batches based on index name:
