@@ -23,7 +23,7 @@ public class SearchController {
 
     @RequestMapping(value = "/rss/search", method = { RequestMethod.GET, RequestMethod.POST }, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String tweetSearch(@RequestParam("q") String query,
+    public String rssSearch(@RequestParam("q") String query,
                               @RequestParam(value = "max") int maxSize) {
         LOG.info("Tweet search request received with query: {} and max: {}", query, maxSize);
         Map<String, Object> headers = new HashMap<String, Object>();
