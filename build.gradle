@@ -37,6 +37,7 @@ dependencies {
     compile("org.apache.camel:camel-elasticsearch:${camelVersion}")
     compile("org.apache.camel:camel-rss:${camelVersion}")
     compile("org.apache.camel:camel-jackson:${camelVersion}")
+    compile("org.apache.camel:camel-freemarker:${camelVersion}")
     compile("joda-time:joda-time:2.8.2")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }

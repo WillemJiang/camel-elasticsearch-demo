@@ -21,7 +21,7 @@ public class SearchController {
     @Autowired
     private ProducerTemplate producerTemplate;
 
-    @RequestMapping(value = "/rss/search", method = { RequestMethod.GET, RequestMethod.POST }, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/rss/search", method = { RequestMethod.GET, RequestMethod.POST }, produces = MediaType.TEXT_HTML_VALUE)
     @ResponseBody
     public String rssSearch(@RequestParam("q") String query,
                               @RequestParam(value = "max") int maxSize) {

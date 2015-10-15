@@ -66,10 +66,10 @@ public class CamelRoutes extends RouteBuilder {
                 // use an iterator to process search result instead of keeping results in memory:
                 .split(method(esRssService, "search"), new ResultAggregationStrategy())
                 .process(new ElasticSearchSearchHitConverter())
-                .marshal(new JacksonDataFormat())
-                // Just add a return to the
-                .setBody(simple("${body}\n"))
-                .end();
+                .to("freemarker:Response.ftl")
+                .end()
+           // Just add a return to the
+        .to("freemarker:ResultPage.ftl");
 
     }
 

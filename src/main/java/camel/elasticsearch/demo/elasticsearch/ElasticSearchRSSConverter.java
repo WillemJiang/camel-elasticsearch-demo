@@ -17,13 +17,11 @@ public class ElasticSearchRSSConverter implements Processor {
         SyndFeed feed = exchange.getIn().getBody(SyndFeed.class);
         SyndEntry entry = (SyndEntry)feed.getEntries().get(0);
         Map map = new HashMap();
-        System.out.println("The entry uri is " + entry.getUri());
         map.put("id", entry.getUri());
         map.put("title", entry.getTitle());
         map.put("link", entry.getLink());
         map.put("description", stripHtmlTags(entry.getDescription().getValue()));
         map.put("publishedData", entry.getPublishedDate());
-        map.put("name", "test");
         exchange.getIn().setBody(map);
     }
 
