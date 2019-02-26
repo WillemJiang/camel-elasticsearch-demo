@@ -12,7 +12,7 @@ The camel route pulls the RSS feed and send the RSS enteris into Elasticsearch. 
 		cluster.name: rss-indexer
 
 
-3. Install the [analysis-ik]() plugin to support the search of Chinese.
+3. Install the [analysis-ik](https://github.com/medcl/elasticsearch-analysis-ik) plugin to support the search of Chinese.
 4. Run Elasticsearch: $ES_HOME/bin/elasticsearch.sh or $ES_HOME/bin/elasticsearch.bat
 
 ## Running the Demo
