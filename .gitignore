@@ -1,12 +1,27 @@
-build
-*.iml
-*.ipr
-*.iws
-.idea
+HELP.md
+**/target/
+**/!.mvn/wrapper/maven-wrapper.jar
 .DS_Store
+
+### STS ###
+.apt_generated
 .classpath
-.ekstazi
+.factorypath
 .project
 .settings
-.checkstyle
-.gradle
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
