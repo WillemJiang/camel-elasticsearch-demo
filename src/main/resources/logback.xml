@@ -5,17 +5,13 @@
     </encoder>
   </appender>
 
-  <root level="WARN">
+  <root level="INFO">
     <appender-ref ref="STDOUT" />
   </root>
 
-  <logger name="tracer" level="TRACE" additivity="false">
-    <appender-ref ref="STDOUT" />
-  </logger>
-
   <!-- Additionally, you can also enable debug logging for RestClient class itself -->
   // Enable the log for debugging
-  <logger name="org.elasticsearch.client.RestClient" level="INFO" additivity="false">
+  <logger name="org.elasticsearch.client.RestClient" level="INFO" >
     <appender-ref ref="STDOUT" />
   </logger>
 </configuration>

@@ -7,8 +7,7 @@ import camel.elasticsearch.demo.elasticsearch.*;
 import javax.annotation.PostConstruct;
 import org.apache.camel.builder.RouteBuilder;
 
-import org.apache.camel.component.elasticsearch.ElasticsearchComponent;
-import org.apache.camel.component.elasticsearch.ElasticsearchEndpoint;
+import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -37,18 +36,18 @@ public class CamelRoutes extends RouteBuilder {
         getContext().getShutdownStrategy().setShutdownRoutesInReverseOrder(false);
         // wait max 5 seconds for camel to stop:
         getContext().getShutdownStrategy().setTimeout(5L);
-
     }
 
 
     @Override public void configure() throws Exception {
+        // The rssEndpointUri consumer the rss feed entry once per second
         String rssEndpointUri = String.format("rss:%s?splitEntries=true&consumer.delay=1000", RssUrl);
-        String esBlukIndexUri = String.format("elasticsearch-rest://rss-indexer?operation=BulkIndex&hostAddresses=%s", elasticsearchHostaddresses);
+        String esBulkIndexUri = String.format("elasticsearch-rest://rss-indexer?operation=BulkIndex&hostAddresses=%s", elasticsearchHostaddresses);
         String esSearchUri = String.format("elasticsearch-rest://rss-indexer?operation=Search&hostAddresses=%s", elasticsearchHostaddresses);
         SplitterBean splitterBean = new SplitterBean();
 
-        // Pulling the rss feed every 1 second
-        from(rssEndpointUri)
+        //TODO Kick the camel route from outside
+        from(rssEndpointUri).id("importRss")
                 .process(new WeeklyIndexNameHeaderUpdater(ES_RSS_INDEX_TYPE))
                 .process(new ElasticSearchRSSConverter())
                 // collects feeds into weekly batches based on index name:
@@ -59,7 +58,7 @@ public class CamelRoutes extends RouteBuilder {
                     .forceCompletionOnStop()
                     .to("log:message")
                     // inserts a batch of feeds to elastic search:
-                    .to(esBlukIndexUri)
+                    .to(esBulkIndexUri)
                 .log("Uploaded documents to ElasticSearch index ${headers.indexName}: ${body.length}");
 
         // Just search the message from the elastic search service
@@ -69,9 +68,15 @@ public class CamelRoutes extends RouteBuilder {
                    .process(new ElasticSearchSearchHitConverter())
                    .to("freemarker:Response.ftl")
                 .end()
-           // Just add a return to the
-        .to("freemarker:ResultPage.ftl");
-
+                // Need to handle if there is no result
+                .choice()
+                    .when().body(body -> body instanceof SearchHits)
+                         .to("freemarker:EmptyResultPage.ftl")
+                    .endChoice()
+                .otherwise()
+                    .to("freemarker:ResultPage.ftl")
+                .end();
+         
     }
 
 }

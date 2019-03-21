@@ -18,8 +18,7 @@ The camel route pulls the RSS feed and send the RSS enteris into Elasticsearch. 
 ## Running the Demo
 You just need to run the Application.main() from your favourite IDE or execute below line from the command line:
 
-		gradle build && java -jar build/libs/camel-elasticsearch-demo-0.0.1-SNAPSHOT.jar
-
+		mvn compile && mvn spring-boot:run
 
 
 

@@ -29,7 +29,7 @@ public class SearchController {
     @ResponseBody
     public String rssSearch(@RequestParam("q") String query,
                               @RequestParam(value = "max") int maxSize) {
-        LOG.info("Tweet search request received with query: {} and max: {}", query, maxSize);
+        LOG.info("Rss search request received with query: {} and max: {}", query, maxSize);
 
         //Build up the SearchRequest
         SearchRequest searchRequest = new SearchRequest();
