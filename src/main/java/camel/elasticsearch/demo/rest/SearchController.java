@@ -4,6 +4,10 @@ import camel.elasticsearch.demo.CamelRoutes;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.camel.ProducerTemplate;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +30,16 @@ public class SearchController {
     public String rssSearch(@RequestParam("q") String query,
                               @RequestParam(value = "max") int maxSize) {
         LOG.info("Tweet search request received with query: {} and max: {}", query, maxSize);
-        Map<String, Object> headers = new HashMap<String, Object>();
-        headers.put("queryField", "title");
-        headers.put("maxSize", maxSize);
-        String result = producerTemplate.requestBodyAndHeaders(CamelRoutes.RSS_SEARCH_URI, query, headers, String.class);
+
+        //Build up the SearchRequest
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        
+        sourceBuilder.query(QueryBuilders.matchQuery("title", query));
+        sourceBuilder.from(0).size(maxSize).explain(true);
+        searchRequest.source(sourceBuilder);
+
+        String result = producerTemplate.requestBody(CamelRoutes.RSS_SEARCH_URI, searchRequest, String.class);
         return result;
     }
 }

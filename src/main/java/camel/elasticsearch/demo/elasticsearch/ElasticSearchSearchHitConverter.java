@@ -13,8 +13,8 @@ public class ElasticSearchSearchHitConverter implements Processor {
         SearchHit hit = exchange.getIn().getBody(SearchHit.class);
 
         // Convert Elasticsearch documents to Maps before serializing to JSON:
-        Map<String, Object> map = new HashMap<String, Object>(hit.sourceAsMap());
-        map.put("score", hit.score());
+        Map<String, Object> map = new HashMap<String, Object>(hit.getSourceAsMap());
+        map.put("score", hit.getScore());
         exchange.getIn().setBody(map);
     }
 }

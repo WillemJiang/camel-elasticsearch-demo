@@ -1,7 +1,7 @@
 # camel-elasticsearch-demo
-The demo for Elasticsearch China Conference #4 In Beijing which is based on [the camel-twitter-demo of davidkiss](https://github.com/davidkiss/twitter-camel-ingester)
+The demo is based on [the camel-twitter-demo of davidkiss](https://github.com/davidkiss/twitter-camel-ingester) to show how to use the camel-elasticsearch component.
 
-The camel route pulls the RSS feed and send the RSS enteris into Elasticsearch. Users can query the RSS title with a key word from a RESTful service which can be accessed from "http://localhost:8080/rss/search" .
+The camel route pulls the RSS feed and send the RSS enteris into Elasticsearch. Users can query the RSS title with a key word from a RESTful service which can be accessed from "http://localhost:8080/rss/search" to search the RSS title.
 
 ## Installing ElasticSearch
 
@@ -12,7 +12,7 @@ The camel route pulls the RSS feed and send the RSS enteris into Elasticsearch. 
 		cluster.name: rss-indexer
 
 
-3. Install the [analysis-ik](https://github.com/medcl/elasticsearch-analysis-ik) plugin to support the search of Chinese.
+3. Install the [analysis-ik](https://github.com/medcl/elasticsearch-analysis-ik) plugin to support the full text search of Chinese.
 4. Run Elasticsearch: $ES_HOME/bin/elasticsearch.sh or $ES_HOME/bin/elasticsearch.bat
 
 ## Running the Demo

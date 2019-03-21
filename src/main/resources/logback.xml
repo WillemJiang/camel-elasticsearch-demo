@@ -1,0 +1,21 @@
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>[%d{ISO8601}] [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="WARN">
+    <appender-ref ref="STDOUT" />
+  </root>
+
+  <logger name="tracer" level="TRACE" additivity="false">
+    <appender-ref ref="STDOUT" />
+  </logger>
+
+  <!-- Additionally, you can also enable debug logging for RestClient class itself -->
+  // Enable the log for debugging
+  <logger name="org.elasticsearch.client.RestClient" level="INFO" additivity="false">
+    <appender-ref ref="STDOUT" />
+  </logger>
+</configuration>
