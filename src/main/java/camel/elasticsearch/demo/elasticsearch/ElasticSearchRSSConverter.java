@@ -30,11 +30,10 @@ import org.apache.camel.Processor;
  */
 public class ElasticSearchRSSConverter implements Processor {
 
-    @Override
     public void process(Exchange exchange) throws Exception {
         SyndFeed feed = exchange.getIn().getBody(SyndFeed.class);
         SyndEntry entry = (SyndEntry)feed.getEntries().get(0);
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<>();
         map.put("title", entry.getTitle());
         map.put("link", entry.getLink());
         map.put("description", stripHtmlTags(entry.getDescription().getValue()));

@@ -19,11 +19,8 @@
 package camel.elasticsearch.demo.rest;
 
 import camel.elasticsearch.demo.CamelRoutes;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.camel.ProducerTemplate;
 import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.slf4j.Logger;

@@ -26,7 +26,7 @@ import org.elasticsearch.search.SearchHit;
 
 
 public class ElasticSearchSearchHitConverter implements Processor {
-    @Override
+
     public void process(Exchange exchange) throws Exception {
         SearchHit hit = exchange.getIn().getBody(SearchHit.class);
 

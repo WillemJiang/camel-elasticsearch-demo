@@ -25,17 +25,17 @@ import org.apache.camel.processor.aggregate.AggregationStrategy;
 
 
 public class ListAggregationStrategy implements AggregationStrategy {
-    @Override
+
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         Object newBody = newExchange.getIn().getBody();
         List<Object> list = null;
         if (oldExchange == null) {
-            list = new ArrayList<Object>();
+            list = new ArrayList<>();
             list.add(newBody);
             newExchange.getIn().setBody(list);
             return newExchange;
         } else {
-            list = oldExchange.getIn().getBody(ArrayList.class);
+            list = oldExchange.getIn().getBody(List.class);
             list.add(newBody);
             return oldExchange;
         }

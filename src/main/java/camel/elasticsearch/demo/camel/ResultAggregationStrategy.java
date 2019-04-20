@@ -22,7 +22,8 @@ import org.apache.camel.Exchange;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
 
 public class ResultAggregationStrategy implements AggregationStrategy {
-    @Override public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
+
+    public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         if (oldExchange == null) {
             return newExchange;
         } else {
